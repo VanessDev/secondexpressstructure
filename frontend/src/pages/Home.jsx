@@ -23,6 +23,25 @@ function Home() {
 
   if (loading) return <p>Chargement...</p>;
 
+  async function handleDelete(id) {
+    
+    if (!window.confirm("Delete this student ?")) return;
+
+   
+    await fetch(`${API}/${id}`, {
+      method: "DELETE",
+      headers: { Accept: "application/json" },
+    });
+
+    // On met à jour la liste des facts côté interface en enlevant celui supprimé
+    setStudents((prev) => prev.filter((f) => f.id !== id));
+  }
+
+ 
+  if (loading) return <p>Chargement…</p>;
+
+  
+  if (errorMsg) return <p>{errorMsg}</p>;
   return (
     <>
       <div className="container">
@@ -39,7 +58,12 @@ function Home() {
                 </div>
 
                 <div>
-                  <button>Delete Student</button>
+                      <button
+                  className="btn danger"
+                  onClick={() => handleDelete(f.id)} // quand on clique, on appelle la fonction handleDelete avec l’id du fact
+                >
+                  Supprimer
+                </button>
                 </div>
               </div>
             </div>
