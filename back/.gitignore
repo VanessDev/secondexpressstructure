@@ -1,0 +1,3 @@
+#Lister les fichiers qui ne doivent pas se retrouver sur github
+.env
+node_modules/
